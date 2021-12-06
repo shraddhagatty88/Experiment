@@ -18,12 +18,13 @@ variable "customer_label"{}
 locals {
   ips = {
     vcn         = "10.199.0.0/22"
-    sub  = "10.199.0.0/26"
+    sub         = "10.199.0.0/26"
     
     access      = {
       v1_anthony   = "37.228.201.25/32"
       
     }
+    v1_domains={ ip_v1_cl_domain ="172.19.146.112/29 "}
     
   }
 }
@@ -76,6 +77,18 @@ locals {
     
         }
       }
+      route_tables = {
+        dmz = {
+          route_rules = [
+            {
+              route_rule_network_entity_id = "DRG"
+              route_rule_destination       = local.ips.v1_domains["ip_v1_cl_domain"]
+              route_rule_destination_type  = "CIDR_BLOCK"
+            }
+          ]
+        }
+      }
+
     }
 }
   

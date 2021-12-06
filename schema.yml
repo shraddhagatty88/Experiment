@@ -30,6 +30,7 @@ variableGroups:
   variables:
   - local.ips["vcn"]
   - local.ips["sub"]
+  - local.ips.v1_domains["ip_v1_cl_domain"]
   
   
 
@@ -90,5 +91,14 @@ variables:
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
     title: "Subnet IP - Prod External"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  local.ips.v1_domains["ip_v1_cl_domain"]:
+    type: string
+    required: false
+    default: "172.19.146.112/29"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Subnet IP - Prod External"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
 
   
