@@ -9,7 +9,7 @@
 variable "tenancy_ocid" {}
 variable "region" {}
 variable "compartment_id"{}
-
+variable "customer_label"{}
 
 ############################################################################
 # IPs:
