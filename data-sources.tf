@@ -30,16 +30,6 @@ data "oci_objectstorage_namespace" "tenancy_namespace" {
 }
 
 ############################################################################
-# Custom Images:
 
-data "oci_core_images" "v1_oel79_golden_image" {
-    compartment_id = module.iam.compartments["common_services"]
-    display_name   = "v1_oel79_golden"
-}
-
-data "oci_core_images" "v1_oel610_golden_image" {
-    compartment_id = module.iam.compartments["common_services"]
-    display_name   = "v1_oel610_golden"
-}
 
 ############################################################################
