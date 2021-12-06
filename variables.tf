@@ -224,7 +224,7 @@ locals {
 
 locals {
   vcns = {
-    vcn = {
+    gmp_vcn = {
       vcn_dns_label      = "${var.customer_label}vcn"
       vcn_cidr_block     = local.ips["vcn"]
       vcn_compartment_id = module.iam.compartments["common_services"]
@@ -603,19 +603,16 @@ locals {
     v1_cl = {
       compartment_id       = module.iam.compartments["common_services"]
       cpe_ip_address       = local.ips.v1proxy["ip_v1_cl_vpn"]
-      ip_sec_drg_id        = module.vcn.drgs["gmp_vcn_drg"]
       ip_sec_static_routes = [local.ips.v1proxy["ip_v1_cl_domain"]]
     }
     v1_cw = {
       compartment_id       = module.iam.compartments["common_services"]
       cpe_ip_address       = local.ips.v1proxy["ip_v1_cw_vpn"]
-      ip_sec_drg_id        = module.vcn.drgs["gmp_vcn_drg"]
       ip_sec_static_routes = [local.ips.v1proxy["ip_v1_cw_domain"]]
     }
     gmp_cb = {
       compartment_id       = module.iam.compartments["common_services"]
       cpe_ip_address       = local.ips.gmp_vpn["gmp_clayton_brook"]
-      ip_sec_drg_id        = module.vcn.drgs["gmp_vcn_drg"]
       ip_sec_static_routes = [local.ips.gmp_domains["gmp_domain_1"]
                              ,local.ips.gmp_domains["gmp_domain_2"]
                              ,local.ips.gmp_domains["gmp_domain_3"]
