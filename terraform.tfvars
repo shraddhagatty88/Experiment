@@ -1,13 +1,8 @@
 ############################################################################
-# Providers:
+# Terraform Variables:
 ############################################################################
 
-provider "oci" {
-  region           = var.region
-  tenancy_ocid     = var.tenancy_ocid
-  #user_ocid        = var.user_ocid
-  #fingerprint      = var.fingerprint
-  #private_key_path = var.private_key_path
-}
+tenancy_ocid = "ocid1.tenancy.oc1..aaaaaaaabixtlqpcm4ve7jwioqb5giktbppnvctbp5w7hcovah3um7mj6h6q"
+region       = "uk-london-1"
 
 ############################################################################

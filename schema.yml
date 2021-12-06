@@ -19,29 +19,8 @@ variableGroups:
 - title: "Required Configuration"
   visible: true  
   variables:
-  - compartment_id
   - customer_label
-  - show_advanced 
-
-- title: "Networking  Configuration"
-  visible: 
-      and:
-        - show_advanced
-  variables:
-  - local.ips["vcn"]
-  - local.ips["sub"]
-  - local.ips.v1_domains["ip_v1_cl_domain"]
   
-  
-
-variables:
-
-  show_advanced:
-    type: boolean
-    title: "Show advanced options?"
-    description: "Shows advanced options."
-    visible: true
-    default: false
 
   # General Configuration
   tenancy_ocid:
@@ -65,40 +44,4 @@ variables:
     required: true
     visibile: false
   
-  # Required Configuration
-  compartment_id:
-    title: "Compartment OCID"
-    description: "Choose Comparment where you deploy your application"
-    type: oci:identity:compartment:id
-    required: true
-    visibile: true
-
-  
- # Network Configuration
-
-  local.ips["vcn"]:
-    type: string
-    required: false
-    default: "10.0.0.0/16"
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "VCN CIDR"
-    description: "Choose single, contiguous IPv4 CIDR block for the VCN"
-  
-  local.ips["sub"]:
-    type: string
-    required: false
-    default: "10.0.1.0/24"
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "Subnet IP - Prod External"
-    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
-
-  local.ips.v1_domains["ip_v1_cl_domain"]:
-    type: string
-    required: false
-    default: "172.19.146.112/29"
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "Subnet IP - Prod External"
-    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
-
-
   
