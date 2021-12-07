@@ -303,23 +303,21 @@ locals {
       }
       route_tables = {
         dmz = {
-          route_rules = [
-
-            dynamic "route"{
-              for_each = var.v1proxy
-              content{
+          route_rules =concat( 
+        
+            [for cidr in var.v1proxy : {
                 route_rule_network_entity_id = "DRG"
-                route_rule_destination       = route.value
+                route_rule_destination       = cidr
                 route_rule_destination_type  = "CIDR_BLOCK"
-              }
-            }
-           
-            {
+             }
+            ],
+
+            [{
               route_rule_network_entity_id = "IGW"
               route_rule_destination       = "0.0.0.0/0"
               route_rule_destination_type  = "CIDR_BLOCK"
-            },
-          ]
+            }])
+          
         }
         app = {
           route_rules = [
