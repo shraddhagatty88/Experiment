@@ -128,28 +128,28 @@ locals {
   }
 }
 
-variable "StackName" {
+variable "StackName"= {
     default = ""
 }
-variable "StackOwner" {
+variable "StackOwner"= {
     default = ""
 }
-variable "ProjectName" {
+variable "ProjectName" ={
     default = ""
 }
-variable "BillingOwner" {
-    default = ""
-
-variable "CostCentre" {
+variable "BillingOwner" ={
     default = ""
 }
-variable "Workload" {
+variable "CostCentre" ={
     default = ""
 }
-variable "Environment"{
+variable "Workload"= {
+    default = ""
+}
+variable "Environment"={
     default =""
 }
-variable "CompartmentName" {
+variable "CompartmentName" ={
   default =""
 }
 ############################################################################
@@ -157,8 +157,8 @@ variable "CompartmentName" {
 ############################################################################
 variable "vcn"{ default ="10.199.0.0/22" }
 variable "sub_lb_int"{ default ="10.199.0.0/26"}
-variable "sub_fss" { default ="10.199.0.64/26"}
-variable "sub_dmz" { default ="10.199.1.0/24"}
+variable "sub_fss"{ default ="10.199.0.64/26"}
+variable "sub_dmz"{ default ="10.199.1.0/24"}
 variable "sub_app"{ default ="10.199.2.0/24"}
 variable "sub_db"{ default ="10.199.3.0/24"}
 
