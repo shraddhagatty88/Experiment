@@ -155,12 +155,12 @@ variable "CompartmentName"{
 ############################################################################
 # IPs:
 ############################################################################
-variable "vcn"{ default ="10.199.0.0/22" }
-variable "sub_lb_int"{ default ="10.199.0.0/26"}
-variable "sub_fss"{ default ="10.199.0.64/26"}
-variable "sub_dmz"{ default ="10.199.1.0/24"}
-variable "sub_app"{ default ="10.199.2.0/24"}
-variable "sub_db"{ default ="10.199.3.0/24"}
+variable "ip_vcn"{ default ="10.199.0.0/22" }
+variable "ip_sub_lb_int"{ default ="10.199.0.0/26"}
+variable "ip_sub_fss"{ default ="10.199.0.64/26"}
+variable "ip_sub_dmz"{ default ="10.199.1.0/24"}
+variable "ip_sub_app"{ default ="10.199.2.0/24"}
+variable "ip_sub_db"{ default ="10.199.3.0/24"}
 
 locals {
   ips = {
@@ -251,36 +251,36 @@ locals {
   vcns = {
     gmp_vcn = {
       vcn_dns_label      = "${var.customer_label}vcn"
-      vcn_cidr_block     = var.vcn
+      vcn_cidr_block     = var.ip_vcn
       vcn_compartment_id = module.iam.compartments["common_services"]
       vcn_defined_tags   = local.tags
       subnets = {
         dmz = {
-          subnet_cidr_block  = var.sub_dmz
+          subnet_cidr_block  = var.ip_sub_dmz
           subnet_dns_label   = "${var.customer_label}dmz"
           subnet_is_private  = false
           subnet_route_table = "dmz"
         }
         app = {
-          subnet_cidr_block      = var.sub_app
+          subnet_cidr_block      = var.ip_sub_app
           subnet_dns_label       = "${var.customer_label}app"
           subnet_is_private      = true
           subnet_route_table     = "app"
         }
         db = {
-          subnet_cidr_block       = var.sub_db
+          subnet_cidr_block       = var.ip_sub_db
           subnet_dns_label        = "${var.customer_label}db"
           subnet_is_private       = true
           subnet_route_table      = "db"
         }
         lbint = {
-          subnet_cidr_block       = var.sub_lb_int
+          subnet_cidr_block       = var.ip_sub_lb_int
           subnet_dns_label        = "${var.customer_label}lbint"
           subnet_is_private       = true
           subnet_route_table      = "app"
         }
         fss = {
-          subnet_cidr_block       = var.sub_fss
+          subnet_cidr_block       = var.ip_sub_fss
           subnet_dns_label        = "${var.customer_label}fss"
           subnet_is_private       = true
           subnet_route_table      = "app"

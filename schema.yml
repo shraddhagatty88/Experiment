@@ -27,12 +27,12 @@ variableGroups:
       and:
         - show_advanced
   variables:
-  - vcn
-  - sub_lb_int
-  - sub_fss
-  - sub_dmz
-  - sub_app
-  - sub_db
+  - ip_vcn
+  - ip_sub_lb_int
+  - ip_sub_fss
+  - ip_sub_dmz
+  - ip_sub_app
+  - ip_sub_db
 
 
 - title: "Tags"
@@ -45,7 +45,7 @@ variableGroups:
   - ProjectName
   - BillingOwner
   - Workload
-  - CostCenter
+  - CostCentre
   - Environment
   - CompartmentName
   
@@ -58,6 +58,8 @@ variables:
     description: "Shows advanced options."
     visible: true
     default: false
+
+
   # General Configuration
   tenancy_ocid:
     title: "Tenancy ID"
@@ -84,7 +86,7 @@ variables:
 
   # Network Configuration
 
-  vcn:
+  ip_vcn:
     type: string
     required: false
     default: "10.199.0.0/22"
@@ -92,7 +94,7 @@ variables:
     title: "VCN CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the VCN"
   
-  sub_lb_int:
+  ip_sub_lb_int:
     type: string
     required: false
     default: "10.199.0.0/26"
@@ -100,7 +102,7 @@ variables:
     title: "Subnet IP - Prod External"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  sub_fss:
+  ip_sub_fss:
     type: string
     required: false
     default: "10.199.0.64/26"
@@ -108,7 +110,7 @@ variables:
     title: "Subnet IP - Prod Application"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  sub_dmz:
+  ip_sub_dmz:
     type: string
     required: false
     default: "10.199.1.0/24"
@@ -116,7 +118,7 @@ variables:
     title: "Subnet IP - Prod Database"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  sub_app:
+  ip_sub_app:
     type: string
     required: false
     default: "10.199.2.0/24"
@@ -124,7 +126,7 @@ variables:
     title: "Subnet IP- NonProd Application>"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  sub_db:
+  ip_sub_db:
     type: string
     required: false
     default: "10.199.3.0/24"
