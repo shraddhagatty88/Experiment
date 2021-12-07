@@ -128,28 +128,28 @@ locals {
   }
 }
 
-variable "StackName"= {
+variable "StackName" {
     default = ""
 }
-variable "StackOwner"= {
+variable "StackOwner" {
     default = ""
 }
-variable "ProjectName" ={
+variable "ProjectName" {
     default = ""
 }
-variable "BillingOwner" ={
+variable "BillingOwner" {
     default = ""
 }
-variable "CostCentre" ={
+variable "CostCentre" {
     default = ""
 }
-variable "Workload"= {
+variable "Workload" {
     default = ""
 }
-variable "Environment"={
+variable "Environment"{
     default =""
 }
-variable "CompartmentName" ={
+variable "CompartmentName"{
   default =""
 }
 ############################################################################
