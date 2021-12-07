@@ -80,7 +80,7 @@ variables:
     description: "Label used as a prefix for naming resources"
     type: string
     required: true
-    visibile: false
+    visible: true
   
   
 

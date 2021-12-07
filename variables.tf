@@ -156,7 +156,7 @@ variable "CompartmentName"{
 # IPs:
 ############################################################################
 variable "ip_vcn"{
-   default ="10.199.0.0/22"
+   default =" "
 }
 variable "ip_sub_lb_int"{
    default ="10.199.0.0/26"
