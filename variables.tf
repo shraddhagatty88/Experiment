@@ -139,8 +139,8 @@ variable "ProjectName" {
 }
 variable "BillingOwner" {
     default = ""
-}
-variable "CostCenter" {
+
+variable "CostCentre" {
     default = ""
 }
 variable "Workload" {
@@ -148,6 +148,9 @@ variable "Workload" {
 }
 variable "Environment"{
     default =""
+}
+variable "CompartmentName" {
+  default =""
 }
 ############################################################################
 # IPs:

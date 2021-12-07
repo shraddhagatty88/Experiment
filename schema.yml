@@ -47,6 +47,7 @@ variableGroups:
   - Workload
   - CostCenter
   - Environment
+  - CompartmentName
   
 
 variables:
@@ -169,12 +170,28 @@ variables:
     title: "WorkLoad"
     description: "Tags"
 
-  CostCenter:
+  CostCentre:
     type: string
     required: false
     default: " "
-    title: "CostCenter"
+    title: "CostCentre"
     description: "Tags"
+
+  CompartmentName:
+    type: string
+    required: false
+    default: " "
+    title: "Compartment Name"
+    description: "Tags"
+
+  Environment:
+    type: string
+    required: false
+    default: " "
+    title: "Environment"
+    description: "Tags"
+
+  
 
 
 outputs:
