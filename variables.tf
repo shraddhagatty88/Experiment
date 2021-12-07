@@ -159,19 +159,19 @@ variable "ip_vcn"{
    default =" "
 }
 variable "ip_sub_lb_int"{
-   default ="10.199.0.0/26"
+   default =" "
 }
 variable "ip_sub_fss"{
-   default ="10.199.0.64/26"
+   default =" "
 }
 variable "ip_sub_dmz"{
-   default ="10.199.1.0/24"
+   default =" "
 }
 variable "ip_sub_app"{ 
-  default ="10.199.2.0/24"
+  default =" "
 }
 variable "ip_sub_db"{
-   default ="10.199.3.0/24"
+   default =" "
 }
 
 locals {
@@ -399,7 +399,7 @@ locals {
               route_rule_network_entity_id = "DRG"
               route_rule_destination       = local.ips.gmp_domains["gmp_domain_18"]
               route_rule_destination_type  = "CIDR_BLOCK"
-	    },
+	           },
             {
               route_rule_network_entity_id = "IGW"
               route_rule_destination       = "0.0.0.0/0"
