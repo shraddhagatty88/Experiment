@@ -155,16 +155,27 @@ variable "CompartmentName"{
 ############################################################################
 # IPs:
 ############################################################################
-variable "ip_vcn"{ default ="10.199.0.0/22" }
-variable "ip_sub_lb_int"{ default ="10.199.0.0/26"}
-variable "ip_sub_fss"{ default ="10.199.0.64/26"}
-variable "ip_sub_dmz"{ default ="10.199.1.0/24"}
-variable "ip_sub_app"{ default ="10.199.2.0/24"}
-variable "ip_sub_db"{ default ="10.199.3.0/24"}
+variable "ip_vcn"{
+   default ="10.199.0.0/22"
+}
+variable "ip_sub_lb_int"{
+   default ="10.199.0.0/26"
+}
+variable "ip_sub_fss"{
+   default ="10.199.0.64/26"
+}
+variable "ip_sub_dmz"{
+   default ="10.199.1.0/24"
+}
+variable "ip_sub_app"{ 
+  default ="10.199.2.0/24"
+}
+variable "ip_sub_db"{
+   default ="10.199.3.0/24"
+}
 
 locals {
-  ips = {
-    
+  ips = {   
     access      = {
       v1_anthony   = "37.228.201.25/32"
       v1_anthony_2 = "80.233.59.184/32"

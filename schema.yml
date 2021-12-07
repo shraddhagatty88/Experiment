@@ -123,7 +123,7 @@ variables:
     required: false
     default: "10.199.2.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "Subnet IP- NonProd Application>"
+    title: "Subnet IP- NonProd Application"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
   ip_sub_db:
@@ -194,8 +194,6 @@ variables:
     description: "Tags"
 
   
-
-
 outputs:
 
   generated_ssh_private_key:
