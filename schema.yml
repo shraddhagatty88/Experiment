@@ -33,6 +33,7 @@ variableGroups:
   - ip_sub_dmz
   - ip_sub_app
   - ip_sub_db
+  - v1proxy
 
 
 - title: "Tags"
@@ -133,6 +134,17 @@ variables:
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
     title: "Subnet IP- NonProd Database"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  v1proxy: 
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+    required: false
+    maxItems: 9
+    minItems: 1
+    title: "CIDR Blocks for Exadata VCNs Client Subnets (Must not overlap with 192.168.128.0/20)"
+    description: "List of CIDR blocks for the client subnets of Exadata Cloud Service VCNs, in CIDR notation. Each provided CIDR value relates to one and only one VCN, the 'nth' value applying to the 'nth' value in 'CIDR blocks for Exadata VCNs'. (Type the CIDR and hit enter to enter multiple values, up to a maximum of 9)"
 
 
   #Tags

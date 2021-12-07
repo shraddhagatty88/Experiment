@@ -229,7 +229,10 @@ locals {
 }
 
 variable "v1proxy" {
-  default = ["172.19.146.112/29", "172.20.152.184/29"]
+  type        = list(string)
+  description = "List of on-premises CIDR blocks allowed to connect to the Landing Zone network via a DRG."
+  default     = []
+  
 }
 
 ############################################################################
