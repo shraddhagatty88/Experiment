@@ -20,9 +20,43 @@ variableGroups:
   visible: true  
   variables:
   - customer_label
-  - local.ips["vcn"]
+  - show_advanced 
+  
+- title: "Networking  Configuration"
+  visible: 
+      and:
+        - show_advanced
+  variables:
+  - vcn
+  - sub_lb_int
+  - sub_fss
+  - sub_dmz
+  - sub_app
+  - sub_db
+
+
+- title: "Tags"
+  visible: 
+      and:
+        - show_advanced
+  variables:
+  - StackName
+  - StackOwner
+  - ProjectName
+  - BillingOwner
+  - Workload
+  - CostCenter
+  - Environment
   
 
+variables:
+
+  show_advanced:
+    type: boolean
+    title: "Show advanced options?"
+    description: "Shows advanced options."
+    visible: true
+    default: false
   # General Configuration
   tenancy_ocid:
     title: "Tenancy ID"
@@ -45,12 +79,116 @@ variableGroups:
     required: true
     visibile: false
   
-  local.ips["vcn"]:
+  
+
+  # Network Configuration
+
+  vcn:
     type: string
     required: false
-    default: "10.0.0.0/16"
+    default: "10.199.0.0/22"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
     title: "VCN CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the VCN"
   
+  sub_lb_int:
+    type: string
+    required: false
+    default: "10.199.0.0/26"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Subnet IP - Prod External"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  sub_fss:
+    type: string
+    required: false
+    default: "10.199.0.64/26"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Subnet IP - Prod Application"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  sub_dmz:
+    type: string
+    required: false
+    default: "10.199.1.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Subnet IP - Prod Database"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  sub_app:
+    type: string
+    required: false
+    default: "10.199.2.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Subnet IP- NonProd Application>"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  sub_db:
+    type: string
+    required: false
+    default: "10.199.3.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Subnet IP- NonProd Database"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+
+  #Tags
+
+  StackName:
+    type: string
+    required: false
+    default: " "
+    title: "Stackname"
+    description: "Tags"
+
+  StackOwner:
+    type: string
+    required: false
+    default: " "
+    title: "Stackowner"
+    description: "Tags"
+
+  ProjectName:
+    type: string
+    required: false
+    default: " "
+    title: "ProjectName"
+    description: "Tags"
+
+  BillingOwner:
+    type: string
+    required: false
+    default: " "
+    title: "BillingOwner"
+    description: "Tags"
+
+  Workload:
+    type: string
+    required: false
+    default: " "
+    title: "WorkLoad"
+    description: "Tags"
+
+  CostCenter:
+    type: string
+    required: false
+    default: " "
+    title: "CostCenter"
+    description: "Tags"
+
+
+outputs:
+
+  generated_ssh_private_key:
+    title: "Generated SSH Private Key"
+    displayText: "Generated SSH Private Key"
+    type: string
+    visible: true
   
+  FoggyKitchenWebserver1PublicIP:
+    title: " Public IP"
+    displayText: " Public IP"
+    type: copyableString
+    visible: true
+
+ 

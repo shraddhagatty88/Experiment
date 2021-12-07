@@ -117,29 +117,51 @@ locals {
 
 locals {
   tags = {
-    "Account.StackName"          = ""
-    "Account.StackOwner"         = ""
-    "Account.ProjectName"        = ""
-    "Account.BillingOwner"       = ""
-    "Account.CompartmentName"    = ""
-    "Billing.CostCentre"         = ""
-    "Billing.Workload"           = ""
-    "Billing.Environment"        = ""
+    "Account.StackName"          = var.StackName
+    "Account.StackOwner"         = var.StackOwner
+    "Account.ProjectName"        = var.ProjectName
+    "Account.BillingOwner"       = var.BillingOwner
+    "Account.CompartmentName"    = var.CompartmentName
+    "Billing.CostCentre"         = var.CostCentre
+    "Billing.Workload"           = var.Workload
+    "Billing.Environment"        = var.Environment
   }
 }
 
+variable "StackName" {
+    default = ""
+}
+variable "StackOwner" {
+    default = ""
+}
+variable "ProjectName" {
+    default = ""
+}
+variable "BillingOwner" {
+    default = ""
+}
+variable "CostCenter" {
+    default = ""
+}
+variable "Workload" {
+    default = ""
+}
+variable "Environment"{
+    default =""
+}
 ############################################################################
 # IPs:
 ############################################################################
+variable "vcn"{ default ="10.199.0.0/22" }
+variable "sub_lb_int"{ default ="10.199.0.0/26"}
+variable "sub_fss" { default ="10.199.0.64/26"}
+variable "sub_dmz" { default ="10.199.1.0/24"}
+variable "sub_app"{ default ="10.199.2.0/24"}
+variable "sub_db"{ default ="10.199.3.0/24"}
 
 locals {
   ips = {
-    vcn         = "10.199.0.0/22"
-    sub_lb_int  = "10.199.0.0/26"
-    sub_fss     = "10.199.0.64/26"
-    sub_dmz     = "10.199.1.0/24"
-    sub_app     = "10.199.2.0/24"
-    sub_db      = "10.199.3.0/24"
+    
     access      = {
       v1_anthony   = "37.228.201.25/32"
       v1_anthony_2 = "80.233.59.184/32"
@@ -226,36 +248,36 @@ locals {
   vcns = {
     gmp_vcn = {
       vcn_dns_label      = "${var.customer_label}vcn"
-      vcn_cidr_block     = local.ips["vcn"]
+      vcn_cidr_block     = var.vcn
       vcn_compartment_id = module.iam.compartments["common_services"]
       vcn_defined_tags   = local.tags
       subnets = {
         dmz = {
-          subnet_cidr_block  = local.ips["sub_dmz"]
+          subnet_cidr_block  = var.sub_dmz
           subnet_dns_label   = "${var.customer_label}dmz"
           subnet_is_private  = false
           subnet_route_table = "dmz"
         }
         app = {
-          subnet_cidr_block      = local.ips["sub_app"]
+          subnet_cidr_block      = var.sub_app
           subnet_dns_label       = "${var.customer_label}app"
           subnet_is_private      = true
           subnet_route_table     = "app"
         }
         db = {
-          subnet_cidr_block       = local.ips["sub_db"]
+          subnet_cidr_block       = var.sub_db
           subnet_dns_label        = "${var.customer_label}db"
           subnet_is_private       = true
           subnet_route_table      = "db"
         }
         lbint = {
-          subnet_cidr_block       = local.ips["sub_lb_int"]
+          subnet_cidr_block       = var.sub_lb_int
           subnet_dns_label        = "${var.customer_label}lbint"
           subnet_is_private       = true
           subnet_route_table      = "app"
         }
         fss = {
-          subnet_cidr_block       = local.ips["sub_fss"]
+          subnet_cidr_block       = var.sub_fss
           subnet_dns_label        = "${var.customer_label}fss"
           subnet_is_private       = true
           subnet_route_table      = "app"
