@@ -235,6 +235,13 @@ variable "v1proxy" {
   
 }
 
+variable "domain" {
+  type        = list(string)
+  description = "List of on-premises CIDR blocks allowed to connect to the Landing Zone network via a DRG."
+  default     = []
+  
+}
+
 ############################################################################
 # Instances:
 ############################################################################
@@ -315,6 +322,16 @@ locals {
              }
             ],
 
+            [for cidr in var.domain : {
+             
+                route_rule_network_entity_id = "DRG"
+                route_rule_destination       = cidr
+                route_rule_destination_type  = "CIDR_BLOCK"
+            
+            
+            }
+            ]
+            ,
             [{
               route_rule_network_entity_id = "IGW"
               route_rule_destination       = "0.0.0.0/0"
@@ -323,222 +340,50 @@ locals {
           
         }
         app = {
-          route_rules = [
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.v1_domains["ip_v1_cl_domain"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.v1_domains["ip_v1_cw_domain"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_1"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_2"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_3"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_4"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_5"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_6"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_7"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_8"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_9"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_10"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_11"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_12"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_13"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_14"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_15"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_16"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_17"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_18"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "NAT"
-              route_rule_destination       = "0.0.0.0/0"
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-          ]
+          route_rules = concat (
+            [for cidr in var.v1proxy : {
+                route_rule_network_entity_id = "DRG"
+                route_rule_destination       = cidr
+                route_rule_destination_type  = "CIDR_BLOCK"
+             }
+            ],
+
+            [for cidr in var.domain : {
+             
+                route_rule_network_entity_id = "DRG"
+                route_rule_destination       = cidr
+                route_rule_destination_type  = "CIDR_BLOCK"
+            
+            
+            }
+            ])
+            
         }
+
         db = {
-          route_rules = [
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.v1_domains["ip_v1_cl_domain"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.v1_domains["ip_v1_cw_domain"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_1"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_2"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_3"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_4"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_5"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_6"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_7"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_8"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_9"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_10"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_11"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_12"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_13"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_14"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_15"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_16"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_17"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
-              route_rule_network_entity_id = "DRG"
-              route_rule_destination       = local.ips.gmp_domains["gmp_domain_18"]
-              route_rule_destination_type  = "CIDR_BLOCK"
-            },
-            {
+          route_rules = concat (
+            [for cidr in var.v1proxy : {
+                route_rule_network_entity_id = "DRG"
+                route_rule_destination       = cidr
+                route_rule_destination_type  = "CIDR_BLOCK"
+             }
+            ],
+
+            [for cidr in var.domain : {
+             
+                route_rule_network_entity_id = "DRG"
+                route_rule_destination       = cidr
+                route_rule_destination_type  = "CIDR_BLOCK"
+            
+            
+            }
+            ],
+            
+            [ {
               route_rule_network_entity_id = "NAT"
               route_rule_destination       = "0.0.0.0/0"
               route_rule_destination_type  = "CIDR_BLOCK"
-            },
-          ]
+            },])  
         }
       }
     }

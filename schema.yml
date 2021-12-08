@@ -34,6 +34,7 @@ variableGroups:
   - ip_sub_app
   - ip_sub_db
   - v1proxy
+  - domain
 
 
 - title: "Tags"
@@ -145,6 +146,18 @@ variables:
     minItems: 1
     title: "CIDR Blocks for Exadata VCNs Client Subnets (Must not overlap with 192.168.128.0/20)"
     description: "List of CIDR blocks for the client subnets of Exadata Cloud Service VCNs, in CIDR notation. Each provided CIDR value relates to one and only one VCN, the 'nth' value applying to the 'nth' value in 'CIDR blocks for Exadata VCNs'. (Type the CIDR and hit enter to enter multiple values, up to a maximum of 9)"
+
+  domain: 
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+    required: false
+    maxItems: 9
+    minItems: 1
+    title: "CIDR Blocks for Exadata VCNs Client Subnets (Must not overlap with 192.168.128.0/20)"
+    description: "List of CIDR blocks for the client subnets of Exadata Cloud Service VCNs, in CIDR notation. Each provided CIDR value relates to one and only one VCN, the 'nth' value applying to the 'nth' value in 'CIDR blocks for Exadata VCNs'. (Type the CIDR and hit enter to enter multiple values, up to a maximum of 9)"
+
 
 
   #Tags
